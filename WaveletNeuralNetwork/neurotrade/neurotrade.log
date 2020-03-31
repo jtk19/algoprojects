@@ -1,0 +1,546 @@
+Script started on Thu 20 Feb 2014 21:51:04 GMT
+]0;jeevw@localhost:~/workspace/neurotrade]7;file://localhost.localdomain/home/jeevw/workspace/neurotrade[?1034h[jeevw@localhost neurotrade]$ 
+]0;jeevw@localhost:~/workspace/neurotrade]7;file://localhost.localdomain/home/jeevw/workspace/neurotrade[jeevw@localhost neurotrade]$ exit./neurotrade 40 2.5
+Hello. Welcome to NeuroTrade.
+[INFO : 2014-02-20 21:51:11][main()] Connecting to database: neurotrdb
+[DEBUG : 2014-02-20 21:51:11][Database::init()] Database connector initialised for neurotrdb.
+[DEBUG : 2014-02-20 21:51:11][Database::connect()] Connected to the database neurotrdb.
+[INFO : 2014-02-20 21:51:11][main()] DB connected. 
+
+[INFO : 2014-02-20 21:51:11][main()] Loading Data.
+[INFO : 2014-02-20 21:51:11]Clearing table neurotrdb.ftse100_futures_bars_t
+[SUCCESS : 2014-02-20 21:51:11]*** db connected
+[INFO : 2014-02-20 21:51:11] Loading Bar data file: ZZ3-15min.CSV
+[SUCCESS : 2014-02-20 21:51:11]*** db connected
+LOAD DATA LOCAL INFILE '/usr/local/data/neurotr/data/ZZ3-15min.CSV' INTO TABLE neurotrdb.ftse100_futures_bars_t FIELDS TERMINATED BY ','  IGNORE 1 LINES  ( @col1, time, open, high, low, close, upticks, downticks )  SET `bar_size_id` = 2,      `date` = str_to_date( @col1, '%m/%d/%Y'),      `return` = 0;
+[SUCCESS : 2014-02-20 21:51:11]*** db connected
+[SUCCESS : 2014-02-20 21:51:13][NeuroTrDb::loadData()] Loaded NeuroTrade data in: ZZ3-15min.CSV
+[SUCCESS : 2014-02-20 21:51:13]*** db connected
+[DEBUG : 2014-02-20 21:51:16][NeuroTrDb::loadData()] Returns calculated.
+[INFO : 2014-02-20 21:51:16][main()] Data loaded. 
+
+[INFO : 2014-02-20 21:51:16][main()] Reading in samples from the database.
+[DEBUG : 2014-02-20 21:51:16][NeuroTrDb::getReturns()] Returns SELECTed.
+[DEBUG : 2014-02-20 21:51:16][NeuroTrDb::getReturns()] Read in 144788 training samples.
+[INFO : 2014-02-20 21:51:16][main()] Wavelet NN Input Layer Ready.
+
+
+[INFO : 2014-02-20 21:51:16][main()] Setting Wavelet Means and Radius with K Means Clustering.
+[INFO : 2014-02-20 21:51:16][WaveletNN::setWaveletMeansAndRadius()] Preparing clusters and test data.
+Total Samples: 144788
+Done separating test data
+Done setting training data
+Training Samples: 130309 Test Samples: 14479
+Clustering Samples: 130309
+Clustering Init SSE: 9.43751e+06
+[INFO : 2014-02-20 21:51:16][main()] Clusters and test data initialized.
+
+[SUCCESS : 2014-02-20 21:51:16][WaveletNN::initClustersTestData()] Done initializing KMeans Clustering
+[INFO : 2014-02-20 21:51:16][WaveletNN::setWaveletMeansAndRadius()] Training for K = 40 means.
+Clusters: [ size, SSE ]
+ [ 130309, 9.43751e+06 ] 
+[INFO : 2014-02-20 21:51:16][KMeansClustering::bisect()] Picked cluster 0 to bisect with SSE 9.43751e+06 and size 130309.
+Cluster sizes: c1 [128438] + c2 [1871]	 Bisection SSE: 40046.7  ***  
+Cluster sizes: c1 [69] + c2 [130240]	 Bisection SSE: 34826.4
+Cluster sizes: c1 [113463] + c2 [16846]	 Bisection SSE: 43485.7
+Cluster sizes: c1 [6512] + c2 [123797]	 Bisection SSE: 41727.9
+Cluster sizes: c1 [112236] + c2 [18073]	 Bisection SSE: 43603.5
+Cluster sizes: c1 [19] + c2 [130290]	 Bisection SSE: 33611.7
+Cluster sizes: c1 [115696] + c2 [14613]	 Bisection SSE: 43253.2
+Cluster sizes: c1 [6129] + c2 [124180]	 Bisection SSE: 41578.7
+Cluster sizes: c1 [125507] + c2 [4802]	 Bisection SSE: 41091.2
+Cluster sizes: c1 [130270] + c2 [39]	 Bisection SSE: 33992.5
+Cluster sizes: c1 [194] + c2 [130115]	 Bisection SSE: 36290.7
+Cluster sizes: c1 [124763] + c2 [5546]	 Bisection SSE: 41303.8
+Cluster sizes: c1 [28] + c2 [130281]	 Bisection SSE: 33855.1
+Cluster sizes: c1 [32] + c2 [130277]	 Bisection SSE: 33896
+Cluster sizes: c1 [124584] + c2 [5725]	 Bisection SSE: 41433.6
+Cluster sizes: c1 [6505] + c2 [123804]	 Bisection SSE: 41662.4
+Cluster sizes: c1 [5696] + c2 [124613]	 Bisection SSE: 41502.2
+Cluster sizes: c1 [6368] + c2 [123941]	 Bisection SSE: 41742.4
+[INFO : 2014-02-20 21:51:22][KMeansClustering::bisect()] Previous SSE: 9.43751e+06
+[INFO : 2014-02-20 21:51:22][KMeansClustering::bisect()] Bisected Cluster removed. NumClusters: 0
+Cluster sizes: c1 [128438] + c2 [1871]
+[INFO : 2014-02-20 21:51:22][KMeansClustering::bisect()] New Clusters added. Clustering size: 2
+[INFO : 2014-02-20 21:51:22][KMeansClustering::bisect()] New SSE: 40046.7
+ **** Num Clusters : 2
+[INFO : 2014-02-20 21:51:22][KMeansClustering::besectingKMeansClustering()] Bisecting runs: 1
+[INFO : 2014-02-20 21:51:22][KMeansClustering::bisectingKMeansClustering()] We have clusters: 2
+Clusters: [ size, SSE ]
+ [ 128438, 30259 ]  [ 1871, 9787.78 ] 
+[INFO : 2014-02-20 21:51:22][KMeansClustering::bisect()] Picked cluster 0 to bisect with SSE 30259 and size 128438.
+Cluster sizes: c1 [122655] + c2 [5783]	 Bisection SSE: 39389.6  ***  
+Cluster sizes: c1 [5560] + c2 [122878]	 Bisection SSE: 39326.3  ***  
+Cluster sizes: c1 [6440] + c2 [121998]	 Bisection SSE: 39713.5
+Cluster sizes: c1 [128245] + c2 [193]	 Bisection SSE: 34821
+Cluster sizes: c1 [121892] + c2 [6546]	 Bisection SSE: 39372.5
+Cluster sizes: c1 [122413] + c2 [6025]	 Bisection SSE: 39565
+Cluster sizes: c1 [22] + c2 [128416]	 Bisection SSE: 32146.4
+Cluster sizes: c1 [121173] + c2 [7265]	 Bisection SSE: 39727.6
+Cluster sizes: c1 [5528] + c2 [122910]	 Bisection SSE: 39284.4  ***  
+Cluster sizes: c1 [5858] + c2 [122580]	 Bisection SSE: 39218.1  ***  
+Cluster sizes: c1 [8662] + c2 [119776]	 Bisection SSE: 40370.9
+Cluster sizes: c1 [25837] + c2 [102601]	 Bisection SSE: 41994.6
+Cluster sizes: c1 [120914] + c2 [7524]	 Bisection SSE: 39924.2
+Cluster sizes: c1 [122987] + c2 [5451]	 Bisection SSE: 39112.3  ***  
+[INFO : 2014-02-20 21:51:27][KMeansClustering::bisect()] Previous SSE: 40046.7
+[INFO : 2014-02-20 21:51:27][KMeansClustering::bisect()] Bisected Cluster removed. NumClusters: 1
+Cluster sizes: c1 [122987] + c2 [5451]
+[INFO : 2014-02-20 21:51:27][KMeansClustering::bisect()] New Clusters added. Clustering size: 3
+[INFO : 2014-02-20 21:51:27][KMeansClustering::bisect()] New SSE: 48900.1
+ **** Num Clusters : 3
+[INFO : 2014-02-20 21:51:27][KMeansClustering::besectingKMeansClustering()] Bisecting runs: 2
+[INFO : 2014-02-20 21:51:27][KMeansClustering::bisectingKMeansClustering()] We have clusters: 3
+Clusters: [ size, SSE ]
+ [ 1871, 9787.78 ]  [ 122987, 28237.1 ] *  [ 5451, 10875.2 ] 
+[INFO : 2014-02-20 21:51:27][KMeansClustering::bisect()] Picked cluster 1 to bisect with SSE 28237.1 and size 122987.
+Cluster sizes: c1 [117623] + c2 [5364]	 Bisection SSE: 36634  ***  
+Cluster sizes: c1 [7282] + c2 [115705]	 Bisection SSE: 36965
+Cluster sizes: c1 [252] + c2 [122735]	 Bisection SSE: 32661.9
+Cluster sizes: c1 [2490] + c2 [120497]	 Bisection SSE: 35331.3  ***  
+Cluster sizes: c1 [4942] + c2 [118045]	 Bisection SSE: 36513.4
+Cluster sizes: c1 [118077] + c2 [4910]	 Bisection SSE: 36589.2
+Cluster sizes: c1 [4558] + c2 [118429]	 Bisection SSE: 36237.7
+Cluster sizes: c1 [6864] + c2 [116123]	 Bisection SSE: 36862.9
+Cluster sizes: c1 [4886] + c2 [118101]	 Bisection SSE: 36424.8
+Cluster sizes: c1 [117643] + c2 [5344]	 Bisection SSE: 36554.1
+Cluster sizes: c1 [121209] + c2 [1778]	 Bisection SSE: 35224.6  ***  
+Cluster sizes: c1 [3829] + c2 [119158]	 Bisection SSE: 36070.5
+Cluster sizes: c1 [7214] + c2 [115773]	 Bisection SSE: 36959.2
+[INFO : 2014-02-20 21:51:31][KMeansClustering::bisect()] Previous SSE: 48900.1
+[INFO : 2014-02-20 21:51:31][KMeansClustering::bisect()] Bisected Cluster removed. NumClusters: 2
+Cluster sizes: c1 [121209] + c2 [1778]
+[INFO : 2014-02-20 21:51:31][KMeansClustering::bisect()] New Clusters added. Clustering size: 4
+[INFO : 2014-02-20 21:51:31][KMeansClustering::bisect()] New SSE: 55887.6
+ **** Num Clusters : 4
+[INFO : 2014-02-20 21:51:31][KMeansClustering::besectingKMeansClustering()] Bisecting runs: 3
+[INFO : 2014-02-20 21:51:31][KMeansClustering::bisectingKMeansClustering()] We have clusters: 4
+Clusters: [ size, SSE ]
+ [ 1871, 9787.78 ]  [ 5451, 10875.2 ] *  [ 121209, 27018.4 ] *  [ 1778, 8206.24 ] 
+[INFO : 2014-02-20 21:51:31][KMeansClustering::bisect()] Picked cluster 2 to bisect with SSE 27018.4 and size 121209.
+Cluster sizes: c1 [4706] + c2 [116503]	 Bisection SSE: 34289.9  ***  
+Cluster sizes: c1 [117769] + c2 [3440]	 Bisection SSE: 33881.7  ***  
+Cluster sizes: c1 [1] + c2 [121208]	 Bisection SSE: 27402.8
+Cluster sizes: c1 [118491] + c2 [2718]	 Bisection SSE: 33359.4  ***  
+Cluster sizes: c1 [115266] + c2 [5943]	 Bisection SSE: 34860.1
+Cluster sizes: c1 [115378] + c2 [5831]	 Bisection SSE: 34729.3
+Cluster sizes: c1 [4546] + c2 [116663]	 Bisection SSE: 34370
+Cluster sizes: c1 [113456] + c2 [7753]	 Bisection SSE: 35120.7
+Cluster sizes: c1 [5838] + c2 [115371]	 Bisection SSE: 34745.6
+Cluster sizes: c1 [24] + c2 [121185]	 Bisection SSE: 28443.7
+Cluster sizes: c1 [5716] + c2 [115493]	 Bisection SSE: 34581
+Cluster sizes: c1 [115691] + c2 [5518]	 Bisection SSE: 34511.5
+Cluster sizes: c1 [4765] + c2 [116444]	 Bisection SSE: 34233
+Cluster sizes: c1 [958] + c2 [120251]	 Bisection SSE: 31786.3
+Cluster sizes: c1 [5172] + c2 [116037]	 Bisection SSE: 34405.8
+[INFO : 2014-02-20 21:51:35][KMeansClustering::bisect()] Previous SSE: 55887.6
+[INFO : 2014-02-20 21:51:35][KMeansClustering::bisect()] Bisected Cluster removed. NumClusters: 3
+Cluster sizes: c1 [118491] + c2 [2718]
+[INFO : 2014-02-20 21:51:35][KMeansClustering::bisect()] New Clusters added. Clustering size: 5
+[INFO : 2014-02-20 21:51:35][KMeansClustering::bisect()] New SSE: 62228.6
+ **** Num Clusters : 5
+[INFO : 2014-02-20 21:51:35][KMeansClustering::besectingKMeansClustering()] Bisecting runs: 4
+[INFO : 2014-02-20 21:51:35][KMeansClustering::bisectingKMeansClustering()] We have clusters: 5
+Clusters: [ size, SSE ]
+ [ 1871, 9787.78 ]  [ 5451, 10875.2 ] *  [ 1778, 8206.24 ]  [ 118491, 25995.5 ] *  [ 2718, 7363.88 ] 
+[INFO : 2014-02-20 21:51:35][KMeansClustering::bisect()] Picked cluster 3 to bisect with SSE 25995.5 and size 118491.
+Cluster sizes: c1 [118466] + c2 [25]	 Bisection SSE: 27599.9
+Cluster sizes: c1 [117741] + c2 [750]	 Bisection SSE: 30486.6
+Cluster sizes: c1 [113179] + c2 [5312]	 Bisection SSE: 33284.8  ***  
+Cluster sizes: c1 [115036] + c2 [3455]	 Bisection SSE: 32501.5  ***  
+Cluster sizes: c1 [102488] + c2 [16003]	 Bisection SSE: 35081.9
+Cluster sizes: c1 [15] + c2 [118476]	 Bisection SSE: 27399.1
+Cluster sizes: c1 [4328] + c2 [114163]	 Bisection SSE: 32853.8
+Cluster sizes: c1 [4835] + c2 [113656]	 Bisection SSE: 32701.9
+Cluster sizes: c1 [112429] + c2 [6062]	 Bisection SSE: 33226.8
+Cluster sizes: c1 [112437] + c2 [6054]	 Bisection SSE: 33276.3
+Cluster sizes: c1 [114596] + c2 [3895]	 Bisection SSE: 32536.4
+Cluster sizes: c1 [111939] + c2 [6552]	 Bisection SSE: 33418.2
+Cluster sizes: c1 [105009] + c2 [13482]	 Bisection SSE: 34941.5
+Cluster sizes: c1 [2] + c2 [118489]	 Bisection SSE: 26441.5
+Cluster sizes: c1 [111079] + c2 [7412]	 Bisection SSE: 33621.6
+Cluster sizes: c1 [4111] + c2 [114380]	 Bisection SSE: 32434  ***  
+[INFO : 2014-02-20 21:51:40][KMeansClustering::bisect()] Previous SSE: 62228.6
+[INFO : 2014-02-20 21:51:40][KMeansClustering::bisect()] Bisected Cluster removed. NumClusters: 4
+Cluster sizes: c1 [4111] + c2 [114380]
+[INFO : 2014-02-20 21:51:40][KMeansClustering::bisect()] New Clusters added. Clustering size: 6
+[INFO : 2014-02-20 21:51:40][KMeansClustering::bisect()] New SSE: 68667.1
+ **** Num Clusters : 6
+[INFO : 2014-02-20 21:51:40][KMeansClustering::besectingKMeansClustering()] Bisecting runs: 5
+[INFO : 2014-02-20 21:51:40][KMeansClustering::bisectingKMeansClustering()] We have clusters: 6
+Clusters: [ size, SSE ]
+ [ 1871, 9787.78 ]  [ 5451, 10875.2 ] *  [ 1778, 8206.24 ]  [ 2718, 7363.88 ]  [ 4111, 7562.97 ]  [ 114380, 24871 ] * 
+[INFO : 2014-02-20 21:51:40][KMeansClustering::bisect()] Picked cluster 5 to bisect with SSE 24871 and size 114380.
+Cluster sizes: c1 [6306] + c2 [108074]	 Bisection SSE: 32081.5  ***  
+Cluster sizes: c1 [13331] + c2 [101049]	 Bisection SSE: 33379.1
+Cluster sizes: c1 [4641] + c2 [109739]	 Bisection SSE: 31280.1  ***  
+Cluster sizes: c1 [110045] + c2 [4335]	 Bisection SSE: 31222.9  ***  
+Cluster sizes: c1 [10951] + c2 [103429]	 Bisection SSE: 33066.6
+Cluster sizes: c1 [22800] + c2 [91580]	 Bisection SSE: 34259.6
+Cluster sizes: c1 [110119] + c2 [4261]	 Bisection SSE: 31246.1
+Cluster sizes: c1 [81156] + c2 [33224]	 Bisection SSE: 34827
+Cluster sizes: c1 [4830] + c2 [109550]	 Bisection SSE: 31419.4
+Cluster sizes: c1 [12953] + c2 [101427]	 Bisection SSE: 33202.5
+Cluster sizes: c1 [110336] + c2 [4044]	 Bisection SSE: 31041.3  ***  
+Cluster sizes: c1 [108953] + c2 [5427]	 Bisection SSE: 31613.8
+[INFO : 2014-02-20 21:51:43][KMeansClustering::bisect()] Previous SSE: 68667.1
+[INFO : 2014-02-20 21:51:43][KMeansClustering::bisect()] Bisected Cluster removed. NumClusters: 5
+Cluster sizes: c1 [110336] + c2 [4044]
+[INFO : 2014-02-20 21:51:43][KMeansClustering::bisect()] New Clusters added. Clustering size: 7
+[INFO : 2014-02-20 21:51:43][KMeansClustering::bisect()] New SSE: 74837.3
+ **** Num Clusters : 7
+[INFO : 2014-02-20 21:51:43][KMeansClustering::besectingKMeansClustering()] Bisecting runs: 6
+[INFO : 2014-02-20 21:51:43][KMeansClustering::bisectingKMeansClustering()] We have clusters: 7
+Clusters: [ size, SSE ]
+ [ 1871, 9787.78 ]  [ 5451, 10875.2 ] *  [ 1778, 8206.24 ]  [ 2718, 7363.88 ]  [ 4111, 7562.97 ]  [ 110336, 23790.7 ] *  [ 4044, 7250.58 ] 
+[INFO : 2014-02-20 21:51:43][KMeansClustering::bisect()] Picked cluster 5 to bisect with SSE 23790.7 and size 110336.
+Cluster sizes: c1 [73] + c2 [110263]	 Bisection SSE: 25528.5
+Cluster sizes: c1 [4276] + c2 [106060]	 Bisection SSE: 29618.1  ***  
+Cluster sizes: c1 [105163] + c2 [5173]	 Bisection SSE: 30108.6
+Cluster sizes: c1 [4381] + c2 [105955]	 Bisection SSE: 29658.7
+Cluster sizes: c1 [4498] + c2 [105838]	 Bisection SSE: 29762.5
+Cluster sizes: c1 [4753] + c2 [105583]	 Bisection SSE: 29769.4
+Cluster sizes: c1 [4846] + c2 [105490]	 Bisection SSE: 29860.2
+Cluster sizes: c1 [4562] + c2 [105774]	 Bisection SSE: 29619.9
+Cluster sizes: c1 [104945] + c2 [5391]	 Bisection SSE: 30141.6
+Cluster sizes: c1 [3218] + c2 [107118]	 Bisection SSE: 29237.5  ***  
+Cluster sizes: c1 [105035] + c2 [5301]	 Bisection SSE: 29888.2
+Cluster sizes: c1 [4042] + c2 [106294]	 Bisection SSE: 29578.6
+Cluster sizes: c1 [105548] + c2 [4788]	 Bisection SSE: 30002.3
+[INFO : 2014-02-20 21:51:47][KMeansClustering::bisect()] Previous SSE: 74837.3
+[INFO : 2014-02-20 21:51:47][KMeansClustering::bisect()] Bisected Cluster removed. NumClusters: 6
+Cluster sizes: c1 [3218] + c2 [107118]
+[INFO : 2014-02-20 21:51:47][KMeansClustering::bisect()] New Clusters added. Clustering size: 8
+[INFO : 2014-02-20 21:51:47][KMeansClustering::bisect()] New SSE: 80284.2
+ **** Num Clusters : 8
+[INFO : 2014-02-20 21:51:47][KMeansClustering::besectingKMeansClustering()] Bisecting runs: 7
+[INFO : 2014-02-20 21:51:47][KMeansClustering::bisectingKMeansClustering()] We have clusters: 8
+Clusters: [ size, SSE ]
+ [ 1871, 9787.78 ]  [ 5451, 10875.2 ] *  [ 1778, 8206.24 ]  [ 2718, 7363.88 ]  [ 4111, 7562.97 ]  [ 4044, 7250.58 ]  [ 3218, 6294.73 ]  [ 107118, 22942.8 ] * 
+[INFO : 2014-02-20 21:51:47][KMeansClustering::bisect()] Picked cluster 7 to bisect with SSE 22942.8 and size 107118.
+Cluster sizes: c1 [6456] + c2 [100662]	 Bisection SSE: 29275.9  ***  
+Cluster sizes: c1 [103948] + c2 [3170]	 Bisection SSE: 28012.6  ***  
+Cluster sizes: c1 [102719] + c2 [4399]	 Bisection SSE: 28671.3
+Cluster sizes: c1 [102279] + c2 [4839]	 Bisection SSE: 28633.9
+Cluster sizes: c1 [5312] + c2 [101806]	 Bisection SSE: 28746.6
+Cluster sizes: c1 [102253] + c2 [4865]	 Bisection SSE: 28657.8
+Cluster sizes: c1 [103559] + c2 [3559]	 Bisection SSE: 27942.9  ***  
+Cluster sizes: c1 [2356] + c2 [104762]	 Bisection SSE: 27585.3  ***  
+Cluster sizes: c1 [3409] + c2 [103709]	 Bisection SSE: 28171.4
+Cluster sizes: c1 [101838] + c2 [5280]	 Bisection SSE: 28818.8
+Cluster sizes: c1 [102246] + c2 [4872]	 Bisection SSE: 28747.6
+Cluster sizes: c1 [101773] + c2 [5345]	 Bisection SSE: 28817.6
+[INFO : 2014-02-20 21:51:50][KMeansClustering::bisect()] Previous SSE: 80284.2
+[INFO : 2014-02-20 21:51:50][KMeansClustering::bisect()] Bisected Cluster removed. NumClusters: 7
+Cluster sizes: c1 [2356] + c2 [104762]
+[INFO : 2014-02-20 21:51:50][KMeansClustering::bisect()] New Clusters added. Clustering size: 9
+[INFO : 2014-02-20 21:51:50][KMeansClustering::bisect()] New SSE: 84926.7
+ **** Num Clusters : 9
+[INFO : 2014-02-20 21:51:50][KMeansClustering::besectingKMeansClustering()] Bisecting runs: 8
+[INFO : 2014-02-20 21:51:50][KMeansClustering::bisectingKMeansClustering()] We have clusters: 9
+Clusters: [ size, SSE ]
+ [ 1871, 9787.78 ]  [ 5451, 10875.2 ] *  [ 1778, 8206.24 ]  [ 2718, 7363.88 ]  [ 4111, 7562.97 ]  [ 4044, 7250.58 ]  [ 3218, 6294.73 ]  [ 2356, 5251.66 ]  [ 104762, 22333.7 ] * 
+[INFO : 2014-02-20 21:51:50][KMeansClustering::bisect()] Picked cluster 8 to bisect with SSE 22333.7 and size 104762.
+Cluster sizes: c1 [96815] + c2 [7947]	 Bisection SSE: 28828.6  ***  
+Cluster sizes: c1 [8798] + c2 [95964]	 Bisection SSE: 29046.5
+Cluster sizes: c1 [4280] + c2 [100482]	 Bisection SSE: 27675.5  ***  
+Cluster sizes: c1 [5365] + c2 [99397]	 Bisection SSE: 28147.3
+Cluster sizes: c1 [3697] + c2 [101065]	 Bisection SSE: 27441.5  ***  
+Cluster sizes: c1 [6581] + c2 [98181]	 Bisection SSE: 28399.4
+Cluster sizes: c1 [72442] + c2 [32320]	 Bisection SSE: 31228.9
+Cluster sizes: c1 [2825] + c2 [101937]	 Bisection SSE: 27081.9  ***  
+Cluster sizes: c1 [3487] + c2 [101275]	 Bisection SSE: 27304.6
+Cluster sizes: c1 [4751] + c2 [100011]	 Bisection SSE: 27737.7
+Cluster sizes: c1 [4015] + c2 [100747]	 Bisection SSE: 27519.2
+Cluster sizes: c1 [101572] + c2 [3190]	 Bisection SSE: 27260.8
+[INFO : 2014-02-20 21:51:54][KMeansClustering::bisect()] Previous SSE: 84926.7
+[INFO : 2014-02-20 21:51:54][KMeansClustering::bisect()] Bisected Cluster removed. NumClusters: 8
+Cluster sizes: c1 [2825] + c2 [101937]
+[INFO : 2014-02-20 21:51:54][KMeansClustering::bisect()] New Clusters added. Clustering size: 10
+[INFO : 2014-02-20 21:51:54][KMeansClustering::bisect()] New SSE: 89675
+ **** Num Clusters : 10
+[INFO : 2014-02-20 21:51:54][KMeansClustering::besectingKMeansClustering()] Bisecting runs: 9
+[INFO : 2014-02-20 21:51:54][KMeansClustering::bisectingKMeansClustering()] We have clusters: 10
+Clusters: [ size, SSE ]
+ [ 1871, 9787.78 ]  [ 5451, 10875.2 ] *  [ 1778, 8206.24 ]  [ 2718, 7363.88 ]  [ 4111, 7562.97 ]  [ 4044, 7250.58 ]  [ 3218, 6294.73 ]  [ 2356, 5251.66 ]  [ 2825, 5414.54 ]  [ 101937, 21667.4 ] * 
+[INFO : 2014-02-20 21:51:54][KMeansClustering::bisect()] Picked cluster 9 to bisect with SSE 21667.4 and size 101937.
+Cluster sizes: c1 [3016] + c2 [98921]	 Bisection SSE: 26259.4  ***  
+Cluster sizes: c1 [101932] + c2 [5]	 Bisection SSE: 22056.9
+Cluster sizes: c1 [98338] + c2 [3599]	 Bisection SSE: 26472.4
+Cluster sizes: c1 [98928] + c2 [3009]	 Bisection SSE: 26023.5  ***  
+Cluster sizes: c1 [94749] + c2 [7188]	 Bisection SSE: 27875
+Cluster sizes: c1 [101935] + c2 [2]	 Bisection SSE: 22105
+Cluster sizes: c1 [5953] + c2 [95984]	 Bisection SSE: 27325.9
+Cluster sizes: c1 [2685] + c2 [99252]	 Bisection SSE: 26019.3  ***  
+Cluster sizes: c1 [98897] + c2 [3040]	 Bisection SSE: 26278.6
+Cluster sizes: c1 [93152] + c2 [8785]	 Bisection SSE: 28248.6
+Cluster sizes: c1 [101926] + c2 [11]	 Bisection SSE: 22472.3
+Cluster sizes: c1 [3976] + c2 [97961]	 Bisection SSE: 26728.1
+Cluster sizes: c1 [3380] + c2 [98557]	 Bisection SSE: 26310.6
+Cluster sizes: c1 [3180] + c2 [98757]	 Bisection SSE: 26366.1
+Cluster sizes: c1 [99200] + c2 [2737]	 Bisection SSE: 26087.7
+[INFO : 2014-02-20 21:51:57][KMeansClustering::bisect()] Previous SSE: 89675
+[INFO : 2014-02-20 21:51:57][KMeansClustering::bisect()] Bisected Cluster removed. NumClusters: 9
+Cluster sizes: c1 [2685] + c2 [99252]
+[INFO : 2014-02-20 21:51:58][KMeansClustering::bisect()] New Clusters added. Clustering size: 11
+[INFO : 2014-02-20 21:51:58][KMeansClustering::bisect()] New SSE: 94026.9
+ **** Num Clusters : 11
+[INFO : 2014-02-20 21:51:58][KMeansClustering::besectingKMeansClustering()] Bisecting runs: 10
+[INFO : 2014-02-20 21:51:58][KMeansClustering::bisectingKMeansClustering()] We have clusters: 11
+Clusters: [ size, SSE ]
+ [ 1871, 9787.78 ]  [ 5451, 10875.2 ] *  [ 1778, 8206.24 ]  [ 2718, 7363.88 ]  [ 4111, 7562.97 ]  [ 4044, 7250.58 ]  [ 3218, 6294.73 ]  [ 2356, 5251.66 ]  [ 2825, 5414.54 ]  [ 2685, 4917.24 ]  [ 99252, 21102 ] * 
+[INFO : 2014-02-20 21:51:58][KMeansClustering::bisect()] Picked cluster 10 to bisect with SSE 21102 and size 99252.
+Cluster sizes: c1 [96585] + c2 [2667]	 Bisection SSE: 25272.2  ***  
+Cluster sizes: c1 [3595] + c2 [95657]	 Bisection SSE: 25793.5
+Cluster sizes: c1 [96191] + c2 [3061]	 Bisection SSE: 25587
+Cluster sizes: c1 [4694] + c2 [94558]	 Bisection SSE: 26215.8
+Cluster sizes: c1 [95720] + c2 [3532]	 Bisection SSE: 25850.2
+Cluster sizes: c1 [3805] + c2 [95447]	 Bisection SSE: 25959
+Cluster sizes: c1 [4017] + c2 [95235]	 Bisection SSE: 25931.3
+Cluster sizes: c1 [88472] + c2 [10780]	 Bisection SSE: 27844.1
+Cluster sizes: c1 [3263] + c2 [95989]	 Bisection SSE: 25668.5
+Cluster sizes: c1 [8416] + c2 [90836]	 Bisection SSE: 27314.5
+Cluster sizes: c1 [3006] + c2 [96246]	 Bisection SSE: 25704.5
+Cluster sizes: c1 [3072] + c2 [96180]	 Bisection SSE: 25572.3
+[INFO : 2014-02-20 21:52:00][KMeansClustering::bisect()] Previous SSE: 94026.9
+[INFO : 2014-02-20 21:52:00][KMeansClustering::bisect()] Bisected Cluster removed. NumClusters: 10
+Cluster sizes: c1 [96585] + c2 [2667]
+[INFO : 2014-02-20 21:52:00][KMeansClustering::bisect()] New Clusters added. Clustering size: 12
+[INFO : 2014-02-20 21:52:00][KMeansClustering::bisect()] New SSE: 98197.1
+ **** Num Clusters : 12
+[INFO : 2014-02-20 21:52:00][KMeansClustering::besectingKMeansClustering()] Bisecting runs: 11
+[INFO : 2014-02-20 21:52:00][KMeansClustering::bisectingKMeansClustering()] We have clusters: 12
+Clusters: [ size, SSE ]
+ [ 1871, 9787.78 ]  [ 5451, 10875.2 ] *  [ 1778, 8206.24 ]  [ 2718, 7363.88 ]  [ 4111, 7562.97 ]  [ 4044, 7250.58 ]  [ 3218, 6294.73 ]  [ 2356, 5251.66 ]  [ 2825, 5414.54 ]  [ 2685, 4917.24 ]  [ 96585, 20571.9 ] *  [ 2667, 4700.35 ] 
+[INFO : 2014-02-20 21:52:00][KMeansClustering::bisect()] Picked cluster 10 to bisect with SSE 20571.9 and size 96585.
+Cluster sizes: c1 [93781] + c2 [2804]	 Bisection SSE: 24767  ***  
+Cluster sizes: c1 [92814] + c2 [3771]	 Bisection SSE: 25266.3
+Cluster sizes: c1 [2874] + c2 [93711]	 Bisection SSE: 24756.3  ***  
+Cluster sizes: c1 [3212] + c2 [93373]	 Bisection SSE: 25020.3
+Cluster sizes: c1 [44] + c2 [96541]	 Bisection SSE: 21335.5
+Cluster sizes: c1 [1932] + c2 [94653]	 Bisection SSE: 24332.1  ***  
+Cluster sizes: c1 [4006] + c2 [92579]	 Bisection SSE: 25261.9
+Cluster sizes: c1 [93064] + c2 [3521]	 Bisection SSE: 25222.4
+Cluster sizes: c1 [93108] + c2 [3477]	 Bisection SSE: 25128.9
+Cluster sizes: c1 [93617] + c2 [2968]	 Bisection SSE: 24877.5
+Cluster sizes: c1 [94191] + c2 [2394]	 Bisection SSE: 24558.2
+Cluster sizes: c1 [93407] + c2 [3178]	 Bisection SSE: 24931.5
+Cluster sizes: c1 [15458] + c2 [81127]	 Bisection SSE: 27824
+[INFO : 2014-02-20 21:52:04][KMeansClustering::bisect()] Previous SSE: 98197.1
+[INFO : 2014-02-20 21:52:04][KMeansClustering::bisect()] Bisected Cluster removed. NumClusters: 11
+Cluster sizes: c1 [1932] + c2 [94653]
+[INFO : 2014-02-20 21:52:04][KMeansClustering::bisect()] New Clusters added. Clustering size: 13
+[INFO : 2014-02-20 21:52:04][KMeansClustering::bisect()] New SSE: 101957
+ **** Num Clusters : 13
+[INFO : 2014-02-20 21:52:04][KMeansClustering::besectingKMeansClustering()] Bisecting runs: 12
+[INFO : 2014-02-20 21:52:04][KMeansClustering::bisectingKMeansClustering()] We have clusters: 13
+Clusters: [ size, SSE ]
+ [ 1871, 9787.78 ]  [ 5451, 10875.2 ] *  [ 1778, 8206.24 ]  [ 2718, 7363.88 ]  [ 4111, 7562.97 ]  [ 4044, 7250.58 ]  [ 3218, 6294.73 ]  [ 2356, 5251.66 ]  [ 2825, 5414.54 ]  [ 2685, 4917.24 ]  [ 2667, 4700.35 ]  [ 1932, 4191.79 ]  [ 94653, 20140.3 ] * 
+[INFO : 2014-02-20 21:52:04][KMeansClustering::bisect()] Picked cluster 12 to bisect with SSE 20140.3 and size 94653.
+Cluster sizes: c1 [6843] + c2 [87810]	 Bisection SSE: 25792.7  ***  
+Cluster sizes: c1 [92212] + c2 [2441]	 Bisection SSE: 24063.7  ***  
+Cluster sizes: c1 [1939] + c2 [92714]	 Bisection SSE: 23847.3  ***  
+Cluster sizes: c1 [3095] + c2 [91558]	 Bisection SSE: 24397
+Cluster sizes: c1 [2837] + c2 [91816]	 Bisection SSE: 24389
+Cluster sizes: c1 [24] + c2 [94629]	 Bisection SSE: 20725.2
+Cluster sizes: c1 [2718] + c2 [91935]	 Bisection SSE: 24236.3
+Cluster sizes: c1 [1859] + c2 [92794]	 Bisection SSE: 23697  ***  
+Cluster sizes: c1 [131] + c2 [94522]	 Bisection SSE: 21449.5
+Cluster sizes: c1 [88778] + c2 [5875]	 Bisection SSE: 25485.3
+Cluster sizes: c1 [87397] + c2 [7256]	 Bisection SSE: 25786.2
+Cluster sizes: c1 [91043] + c2 [3610]	 Bisection SSE: 24616.8
+Cluster sizes: c1 [2967] + c2 [91686]	 Bisection SSE: 24411.8
+Cluster sizes: c1 [90599] + c2 [4054]	 Bisection SSE: 24843.5
+[INFO : 2014-02-20 21:52:07][KMeansClustering::bisect()] Previous SSE: 101957
+[INFO : 2014-02-20 21:52:07][KMeansClustering::bisect()] Bisected Cluster removed. NumClusters: 12
+Cluster sizes: c1 [1859] + c2 [92794]
+[INFO : 2014-02-20 21:52:07][KMeansClustering::bisect()] New Clusters added. Clustering size: 14
+[INFO : 2014-02-20 21:52:07][KMeansClustering::bisect()] New SSE: 105514
+ **** Num Clusters : 14
+[INFO : 2014-02-20 21:52:07][KMeansClustering::besectingKMeansClustering()] Bisecting runs: 13
+[INFO : 2014-02-20 21:52:07][KMeansClustering::bisectingKMeansClustering()] We have clusters: 14
+Clusters: [ size, SSE ]
+ [ 1871, 9787.78 ]  [ 5451, 10875.2 ] *  [ 1778, 8206.24 ]  [ 2718, 7363.88 ]  [ 4111, 7562.97 ]  [ 4044, 7250.58 ]  [ 3218, 6294.73 ]  [ 2356, 5251.66 ]  [ 2825, 5414.54 ]  [ 2685, 4917.24 ]  [ 2667, 4700.35 ]  [ 1932, 4191.79 ]  [ 1859, 3947.35 ]  [ 92794, 19749.7 ] * 
+[INFO : 2014-02-20 21:52:07][KMeansClustering::bisect()] Picked cluster 13 to bisect with SSE 19749.7 and size 92794.
+Cluster sizes: c1 [4924] + c2 [87870]	 Bisection SSE: 24684.1  ***  
+Cluster sizes: c1 [87329] + c2 [5465]	 Bisection SSE: 24939.9
+Cluster sizes: c1 [2720] + c2 [90074]	 Bisection SSE: 23745.2  ***  
+Cluster sizes: c1 [2910] + c2 [89884]	 Bisection SSE: 23800.8
+Cluster sizes: c1 [2342] + c2 [90452]	 Bisection SSE: 23557  ***  
+Cluster sizes: c1 [2367] + c2 [90427]	 Bisection SSE: 23560.5
+Cluster sizes: c1 [90739] + c2 [2055]	 Bisection SSE: 23400.1  ***  
+Cluster sizes: c1 [89668] + c2 [3126]	 Bisection SSE: 24002
+Cluster sizes: c1 [90414] + c2 [2380]	 Bisection SSE: 23527.6
+Cluster sizes: c1 [3428] + c2 [89366]	 Bisection SSE: 24067
+Cluster sizes: c1 [7164] + c2 [85630]	 Bisection SSE: 25322.9
+Cluster sizes: c1 [2092] + c2 [90702]	 Bisection SSE: 23311.6  ***  
+[INFO : 2014-02-20 21:52:10][KMeansClustering::bisect()] Previous SSE: 105514
+[INFO : 2014-02-20 21:52:10][KMeansClustering::bisect()] Bisected Cluster removed. NumClusters: 13
+Cluster sizes: c1 [2092] + c2 [90702]
+[INFO : 2014-02-20 21:52:10][KMeansClustering::bisect()] New Clusters added. Clustering size: 15
+[INFO : 2014-02-20 21:52:10][KMeansClustering::bisect()] New SSE: 109076
+ **** Num Clusters : 15
+[INFO : 2014-02-20 21:52:10][KMeansClustering::besectingKMeansClustering()] Bisecting runs: 14
+[INFO : 2014-02-20 21:52:10][KMeansClustering::bisectingKMeansClustering()] We have clusters: 15
+Clusters: [ size, SSE ]
+ [ 1871, 9787.78 ]  [ 5451, 10875.2 ] *  [ 1778, 8206.24 ]  [ 2718, 7363.88 ]  [ 4111, 7562.97 ]  [ 4044, 7250.58 ]  [ 3218, 6294.73 ]  [ 2356, 5251.66 ]  [ 2825, 5414.54 ]  [ 2685, 4917.24 ]  [ 2667, 4700.35 ]  [ 1932, 4191.79 ]  [ 1859, 3947.35 ]  [ 2092, 3963.77 ]  [ 90702, 19347.8 ] * 
+[INFO : 2014-02-20 21:52:10][KMeansClustering::bisect()] Picked cluster 14 to bisect with SSE 19347.8 and size 90702.
+Cluster sizes: c1 [1748] + c2 [88954]	 Bisection SSE: 22754.2  ***  
+Cluster sizes: c1 [88074] + c2 [2628]	 Bisection SSE: 23195.4
+Cluster sizes: c1 [2730] + c2 [87972]	 Bisection SSE: 23234
+Cluster sizes: c1 [85609] + c2 [5093]	 Bisection SSE: 24337.4
+Cluster sizes: c1 [3741] + c2 [86961]	 Bisection SSE: 23689.9
+Cluster sizes: c1 [1905] + c2 [88797]	 Bisection SSE: 22713.9  ***  
+Cluster sizes: c1 [88598] + c2 [2104]	 Bisection SSE: 22971.3
+Cluster sizes: c1 [87949] + c2 [2753]	 Bisection SSE: 23281
+Cluster sizes: c1 [2513] + c2 [88189]	 Bisection SSE: 23242.8
+Cluster sizes: c1 [1607] + c2 [89095]	 Bisection SSE: 22644.7  ***  
+Cluster sizes: c1 [2291] + c2 [88411]	 Bisection SSE: 23037.3
+Cluster sizes: c1 [6055] + c2 [84647]	 Bisection SSE: 24544.3
+[INFO : 2014-02-20 21:52:13][KMeansClustering::bisect()] Previous SSE: 109076
+[INFO : 2014-02-20 21:52:13][KMeansClustering::bisect()] Bisected Cluster removed. NumClusters: 14
+Cluster sizes: c1 [1607] + c2 [89095]
+[INFO : 2014-02-20 21:52:13][KMeansClustering::bisect()] New Clusters added. Clustering size: 16
+[INFO : 2014-02-20 21:52:13][KMeansClustering::bisect()] New SSE: 112373
+ **** Num Clusters : 16
+[INFO : 2014-02-20 21:52:13][KMeansClustering::besectingKMeansClustering()] Bisecting runs: 15
+[INFO : 2014-02-20 21:52:13][KMeansClustering::bisectingKMeansClustering()] We have clusters: 16
+Clusters: [ size, SSE ]
+ [ 1871, 9787.78 ]  [ 5451, 10875.2 ] *  [ 1778, 8206.24 ]  [ 2718, 7363.88 ]  [ 4111, 7562.97 ]  [ 4044, 7250.58 ]  [ 3218, 6294.73 ]  [ 2356, 5251.66 ]  [ 2825, 5414.54 ]  [ 2685, 4917.24 ]  [ 2667, 4700.35 ]  [ 1932, 4191.79 ]  [ 1859, 3947.35 ]  [ 2092, 3963.77 ]  [ 1607, 3642.88 ]  [ 89095, 19001.8 ] * 
+[INFO : 2014-02-20 21:52:13][KMeansClustering::bisect()] Picked cluster 15 to bisect with SSE 19001.8 and size 89095.
+Cluster sizes: c1 [87869] + c2 [1226]	 Bisection SSE: 21748.5  ***  
+Cluster sizes: c1 [86799] + c2 [2296]	 Bisection SSE: 22631.1
+Cluster sizes: c1 [87364] + c2 [1731]	 Bisection SSE: 22360.1
+Cluster sizes: c1 [1951] + c2 [87144]	 Bisection SSE: 22371.9
+Cluster sizes: c1 [2272] + c2 [86823]	 Bisection SSE: 22429.5
+Cluster sizes: c1 [87845] + c2 [1250]	 Bisection SSE: 21900.7
+Cluster sizes: c1 [2670] + c2 [86425]	 Bisection SSE: 22891
+Cluster sizes: c1 [87073] + c2 [2022]	 Bisection SSE: 22493.4
+Cluster sizes: c1 [84020] + c2 [5075]	 Bisection SSE: 23846.9
+Cluster sizes: c1 [6151] + c2 [82944]	 Bisection SSE: 24201.1
+Cluster sizes: c1 [1208] + c2 [87887]	 Bisection SSE: 21901.2
+Cluster sizes: c1 [5278] + c2 [83817]	 Bisection SSE: 23960.1
+[INFO : 2014-02-20 21:52:15][KMeansClustering::bisect()] Previous SSE: 112373
+[INFO : 2014-02-20 21:52:15][KMeansClustering::bisect()] Bisected Cluster removed. NumClusters: 15
+Cluster sizes: c1 [87869] + c2 [1226]
+[INFO : 2014-02-20 21:52:16][KMeansClustering::bisect()] New Clusters added. Clustering size: 17
+[INFO : 2014-02-20 21:52:16][KMeansClustering::bisect()] New SSE: 115120
+ **** Num Clusters : 17
+[INFO : 2014-02-20 21:52:16][KMeansClustering::besectingKMeansClustering()] Bisecting runs: 16
+[INFO : 2014-02-20 21:52:16][KMeansClustering::bisectingKMeansClustering()] We have clusters: 17
+Clusters: [ size, SSE ]
+ [ 1871, 9787.78 ]  [ 5451, 10875.2 ] *  [ 1778, 8206.24 ]  [ 2718, 7363.88 ]  [ 4111, 7562.97 ]  [ 4044, 7250.58 ]  [ 3218, 6294.73 ]  [ 2356, 5251.66 ]  [ 2825, 5414.54 ]  [ 2685, 4917.24 ]  [ 2667, 4700.35 ]  [ 1932, 4191.79 ]  [ 1859, 3947.35 ]  [ 2092, 3963.77 ]  [ 1607, 3642.88 ]  [ 87869, 18766.3 ] *  [ 1226, 2982.24 ] 
+[INFO : 2014-02-20 21:52:16][KMeansClustering::bisect()] Picked cluster 15 to bisect with SSE 18766.3 and size 87869.
+Cluster sizes: c1 [2868] + c2 [85001]	 Bisection SSE: 22623.7  ***  
+Cluster sizes: c1 [3169] + c2 [84700]	 Bisection SSE: 22795.1
+Cluster sizes: c1 [84624] + c2 [3245]	 Bisection SSE: 22844.5
+Cluster sizes: c1 [85894] + c2 [1975]	 Bisection SSE: 22220  ***  
+Cluster sizes: c1 [86108] + c2 [1761]	 Bisection SSE: 22089.1  ***  
+Cluster sizes: c1 [4516] + c2 [83353]	 Bisection SSE: 23252.6
+Cluster sizes: c1 [85881] + c2 [1988]	 Bisection SSE: 22150.5
+Cluster sizes: c1 [85828] + c2 [2041]	 Bisection SSE: 22214.3
+Cluster sizes: c1 [5120] + c2 [82749]	 Bisection SSE: 23480.3
+Cluster sizes: c1 [2659] + c2 [85210]	 Bisection SSE: 22548.2
+Cluster sizes: c1 [2014] + c2 [85855]	 Bisection SSE: 22170.6
+Cluster sizes: c1 [1907] + c2 [85962]	 Bisection SSE: 22106.7
+[INFO : 2014-02-20 21:52:18][KMeansClustering::bisect()] Previous SSE: 115120
+[INFO : 2014-02-20 21:52:18][KMeansClustering::bisect()] Bisected Cluster removed. NumClusters: 16
+Cluster sizes: c1 [86108] + c2 [1761]
+[INFO : 2014-02-20 21:52:18][KMeansClustering::bisect()] New Clusters added. Clustering size: 18
+[INFO : 2014-02-20 21:52:18][KMeansClustering::bisect()] New SSE: 118442
+ **** Num Clusters : 18
+[INFO : 2014-02-20 21:52:18][KMeansClustering::besectingKMeansClustering()] Bisecting runs: 17
+[INFO : 2014-02-20 21:52:18][KMeansClustering::bisectingKMeansClustering()] We have clusters: 18
+Clusters: [ size, SSE ]
+ [ 1871, 9787.78 ]  [ 5451, 10875.2 ] *  [ 1778, 8206.24 ]  [ 2718, 7363.88 ]  [ 4111, 7562.97 ]  [ 4044, 7250.58 ]  [ 3218, 6294.73 ]  [ 2356, 5251.66 ]  [ 2825, 5414.54 ]  [ 2685, 4917.24 ]  [ 2667, 4700.35 ]  [ 1932, 4191.79 ]  [ 1859, 3947.35 ]  [ 2092, 3963.77 ]  [ 1607, 3642.88 ]  [ 1226, 2982.24 ]  [ 86108, 18400.2 ] *  [ 1761, 3688.96 ] 
+[INFO : 2014-02-20 21:52:18][KMeansClustering::bisect()] Picked cluster 16 to bisect with SSE 18400.2 and size 86108.
+Cluster sizes: c1 [84400] + c2 [1708]	 Bisection SSE: 21501  ***  
+Cluster sizes: c1 [86107] + c2 [1]	 Bisection SSE: 18518.8
+Cluster sizes: c1 [1357] + c2 [84751]	 Bisection SSE: 21385.7  ***  
+Cluster sizes: c1 [85799] + c2 [309]	 Bisection SSE: 19924.5
+Cluster sizes: c1 [1701] + c2 [84407]	 Bisection SSE: 21685.5
+Cluster sizes: c1 [84289] + c2 [1819]	 Bisection SSE: 21568.7
+Cluster sizes: c1 [82308] + c2 [3800]	 Bisection SSE: 22514
+Cluster sizes: c1 [1630] + c2 [84478]	 Bisection SSE: 21538.9
+Cluster sizes: c1 [84667] + c2 [1441]	 Bisection SSE: 21321.3  ***  
+Cluster sizes: c1 [1883] + c2 [84225]	 Bisection SSE: 21634.3
+Cluster sizes: c1 [3918] + c2 [82190]	 Bisection SSE: 22677.4
+Cluster sizes: c1 [1428] + c2 [84680]	 Bisection SSE: 21130.2  ***  
+Cluster sizes: c1 [1] + c2 [86107]	 Bisection SSE: 18522.1
+Cluster sizes: c1 [5750] + c2 [80358]	 Bisection SSE: 23374.9
+Cluster sizes: c1 [84852] + c2 [1256]	 Bisection SSE: 21250.2
+[INFO : 2014-02-20 21:52:22][KMeansClustering::bisect()] Previous SSE: 118442
+[INFO : 2014-02-20 21:52:22][KMeansClustering::bisect()] Bisected Cluster removed. NumClusters: 17
+Cluster sizes: c1 [1428] + c2 [84680]
+[INFO : 2014-02-20 21:52:22][KMeansClustering::bisect()] New Clusters added. Clustering size: 19
+[INFO : 2014-02-20 21:52:22][KMeansClustering::bisect()] New SSE: 121172
+ **** Num Clusters : 19
+[INFO : 2014-02-20 21:52:22][KMeansClustering::besectingKMeansClustering()] Bisecting runs: 18
+[INFO : 2014-02-20 21:52:22][KMeansClustering::bisectingKMeansClustering()] We have clusters: 19
+Clusters: [ size, SSE ]
+ [ 1871, 9787.78 ]  [ 5451, 10875.2 ] *  [ 1778, 8206.24 ]  [ 2718, 7363.88 ]  [ 4111, 7562.97 ]  [ 4044, 7250.58 ]  [ 3218, 6294.73 ]  [ 2356, 5251.66 ]  [ 2825, 5414.54 ]  [ 2685, 4917.24 ]  [ 2667, 4700.35 ]  [ 1932, 4191.79 ]  [ 1859, 3947.35 ]  [ 2092, 3963.77 ]  [ 1607, 3642.88 ]  [ 1226, 2982.24 ]  [ 1761, 3688.96 ]  [ 1428, 2971.6 ]  [ 84680, 18158.6 ] * 
+[INFO : 2014-02-20 21:52:22][KMeansClustering::bisect()] Picked cluster 18 to bisect with SSE 18158.6 and size 84680.
+Cluster sizes: c1 [82340] + c2 [2340]	 Bisection SSE: 21616.4  ***  
+Cluster sizes: c1 [81559] + c2 [3121]	 Bisection SSE: 22093.1
+Cluster sizes: c1 [2064] + c2 [82616]	 Bisection SSE: 21525.6  ***  
+Cluster sizes: c1 [1875] + c2 [82805]	 Bisection SSE: 21445.5  ***  
+Cluster sizes: c1 [7189] + c2 [77491]	 Bisection SSE: 23444.8
+Cluster sizes: c1 [83021] + c2 [1659]	 Bisection SSE: 21234.7  ***  
+Cluster sizes: c1 [2023] + c2 [82657]	 Bisection SSE: 21525.2
+Cluster sizes: c1 [83266] + c2 [1414]	 Bisection SSE: 21073.4  ***  
+Cluster sizes: c1 [1437] + c2 [83243]	 Bisection SSE: 21088.7
+Cluster sizes: c1 [4056] + c2 [80624]	 Bisection SSE: 22413.5
+Cluster sizes: c1 [83224] + c2 [1456]	 Bisection SSE: 20880.6  ***  
+Cluster sizes: c1 [80484] + c2 [4196]	 Bisection SSE: 22559.4
+[INFO : 2014-02-20 21:52:24][KMeansClustering::bisect()] Previous SSE: 121172
+[INFO : 2014-02-20 21:52:24][KMeansClustering::bisect()] Bisected Cluster removed. NumClusters: 18
+Cluster sizes: c1 [83224] + c2 [1456]
+[INFO : 2014-02-20 21:52:24][KMeansClustering::bisect()] New Clusters added. Clustering size: 20
+[INFO : 2014-02-20 21:52:24][KMeansClustering::bisect()] New SSE: 123894
+ **** Num Clusters : 20
+[INFO : 2014-02-20 21:52:24][KMeansClustering::besectingKMeansClustering()] Bisecting runs: 19
+[INFO : 2014-02-20 21:52:24][KMeansClustering::bisectingKMeansClustering()] We have clusters: 20
+Clusters: [ size, SSE ]
+ [ 1871, 9787.78 ]  [ 5451, 10875.2 ] *  [ 1778, 8206.24 ]  [ 2718, 7363.88 ]  [ 4111, 7562.97 ]  [ 4044, 7250.58 ]  [ 3218, 6294.73 ]  [ 2356, 5251.66 ]  [ 2825, 5414.54 ]  [ 2685, 4917.24 ]  [ 2667, 4700.35 ]  [ 1932, 4191.79 ]  [ 1859, 3947.35 ]  [ 2092, 3963.77 ]  [ 1607, 3642.88 ]  [ 1226, 2982.24 ]  [ 1761, 3688.96 ]  [ 1428, 2971.6 ]  [ 83224, 17914.8 ] *  [ 1456, 2965.81 ] 
+[INFO : 2014-02-20 21:52:24][KMeansClustering::bisect()] Picked cluster 18 to bisect with SSE 17914.8 and size 83224.
+Cluster sizes: c1 [4] + c2 [83220]	 Bisection SSE: 18256.3
+Cluster sizes: c1 [78714] + c2 [4510]	 Bisection SSE: 22402.4  ***  
+Cluster sizes: c1 [79361] + c2 [3863]	 Bisection SSE: 22041.5  ***  
+Cluster sizes: c1 [81810] + c2 [1414]	 Bisection SSE: 20832.7  ***  
+Cluster sizes: c1 [82298] + c2 [926]	 Bisection SSE: 20388.1  ***  
+Cluster sizes: c1 [2705] + c2 [80519]	 Bisection SSE: 21646.7
+Cluster sizes: c1 [80775] + c2 [2449]	 Bisection SSE: 21316.2
+Cluster sizes: c1 [2130] + c2 [81094]	 Bisection SSE: 21232.9
+Cluster sizes: c1 [2372] + c2 [80852]	 Bisection SSE: 21430.9
+Cluster sizes: c1 [81568] + c2 [1656]	 Bisection SSE: 21024.9
+Cluster sizes: c1 [75987] + c2 [7237]	 Bisection SSE: 23192.8
+Cluster sizes: c1 [1084] + c2 [82140]	 Bisection SSE: 20335.5  ***  
+Cluster sizes: c1 [9291] + c2 [73933]	 Bisection SSE: 23576.7
+[INFO : 2014-02-20 21:52:27][KMeansClustering::bisect()] Previous SSE: 123894
+[INFO : 2014-02-20 21:52:27][KMeansClustering::bisect()] Bisected Cluster removed. NumClusters: 19
+Cluster sizes: c1 [1084] + c2 [82140]
+[INFO : 2014-02-20 21:52:27][KMeansClustering::bisect()] New Clusters added. Clustering size: 21
+[INFO : 2014-02-20 21:52:27][KMeansClustering::bisect()] New SSE: 126315
+ **** Num Clusters : 21
+[INFO : 2014-02-20 21:52:27][KMeansClustering::besectingKMeansClustering()] Bisecting runs: 20
+[INFO : 2014-02-20 21:52:27][KMeansClustering::bisectingKMeansClustering()] We have clusters: 21
+Clusters: [ size, SSE ]
+ [ 1871, 9787.78 ]  [ 5451, 10875.2 ] *  [ 1778, 8206.24 ]  [ 2718, 7363.88 ]  [ 4111, 7562.97 ]  [ 4044, 7250.58 ]  [ 3218, 6294.73 ]  [ 2356, 5251.66 ]  [ 2825, 5414.54 ]  [ 2685, 4917.24 ]  [ 2667, 4700.35 ]  [ 1932, 4191.79 ]  [ 1859, 3947.35 ]  [ 2092, 3963.77 ]  [ 1607, 3642.88 ]  [ 1226, 2982.24 ]  [ 1761, 3688.96 ]  [ 1428, 2971.6 ]  [ 1456, 2965.81 ]  [ 1084, 2612.22 ]  [ 82140, 17723.3 ] * 
+[INFO : 2014-02-20 21:52:27][KMeansClustering::bisect()] Picked cluster 20 to bisect with SSE 17723.3 and size 82140.
+Cluster sizes: c1 [1828] + c2 [80312]	 Bisection SSE: 20713.3  ***  
+Cluster sizes: c1 [82010] + c2 [130]	 Bisection SSE: 18810.4
+Cluster sizes: c1 [2007] + c2 [80133]	 Bisection SSE: 21036.1
+Cluster sizes: c1 [80964] + c2 [1176]	 Bisection SSE: 20365.6  ***  
+Cluster sizes: c1 [1061] + c2 [81079]	 Bisection SSE: 20232.8  ***  
+Cluster sizes: c1 [2714] + c2 [79426]	 Bisection SSE: 21276.1
+Cluster sizes: c1 [77876] + c2 [4264]	 Bisection SSE: 22052.8
+Cluster sizes: c1 [80329] + c2 [1811]	 Bisection SSE: 20959.8
+Cluster sizes: c1 [80404] + c2 [1736]	 Bisection SSE: 20909.2
+Cluster sizes: c1 [69262] + c2 [12878]	 Bisection SSE: 23857.6
+Cluster sizes: c1 [79343] + c2 [2797]	 Bisection SSE: 21491.1
+Cluster sizes: c1 [12148] + c2 [69992]	 Bisection SSE: 23701.6
+^C
+]0;jeevw@localhost:~/workspace/neurotrade]7;file://localhost.localdomain/home/jeevw/workspace/neurotrade[jeevw@localhost neurotrade]$ exit
+exit
+
+Script done on Thu 20 Feb 2014 21:52:34 GMT
