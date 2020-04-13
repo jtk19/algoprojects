@@ -1,0 +1,22 @@
+Segment classification  - Single Gaussian Models of 13MFCC_0_D_A
+Trained with Variational Bayesian Inference
+Male  :  1190  17  430	 =>	1190    447		=> correct: 1800   => 68.8%
+Female:  371  12  598		 371    610		     total: 2618	
+
+24MFCC_E_D Segment 3-ICA 3-GMM classification:
+Male  :  1205  27  405  => 	correct: 1978	=> 75.54 %
+Female:  176   32  773	    	  total: 2618
+
+
+24MFCC_E_D Segment 3-ICA 24Mixture-GMM classification:
+Male  :  1612	 25     0  =>       correct: 2586	=> 98.78%
+Female:     7    974    0	    	  total: 2618
+
+
+
+
+10-ICA
+ 90.336134	32 mixtures with 0.2 regularisation
+ 90.412529	32 mixtures with 0.3 regularisation 	( 84 , 187 )
+ 90.565317	(24, 32) mix with 0.3			( 62 , 185 )
+ 92.589763	(18, 36) mix with 0.3			( 64 , 130 )
